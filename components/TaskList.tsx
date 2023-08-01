@@ -5,16 +5,21 @@ import { FC } from 'react';
 
 interface ITaskList {
   tasks: Task[];
+  handleDeleteTask: (taskId: string) => void;
 }
 
-const TaskList:FC<ITaskList> = ({tasks}) => (
+const TaskList:FC<ITaskList> = ({tasks, handleDeleteTask}) => (
       <View style={styles.listContainer}> 
           <FlatList
               style={styles.taskList}
               keyExtractor={(item) => item.id.toString()}
               data={tasks}
               renderItem={({item}) => (
-                  <TaskItem title={item.title}/>
+                  <TaskItem
+                    handleDeleteTask={handleDeleteTask}
+                    title={item.title}
+                    id={item.id}
+                  />
               )}
           />
       </View>

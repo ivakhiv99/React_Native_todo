@@ -16,14 +16,20 @@ export default function App() {
   const handleAddTask = (task: Task) => {
     console.log('NEW TASK', {task});
     setAllTasks([...allTasks, task])
+  }
 
+  const handleDeleteTask = (taskId: string) => {
+    setAllTasks(allTasks.filter((task: Task) => task.id !== taskId));
   }
 
   return (
     <View style={styles.container}>
       <Header/>
       <NewTaskForm handleAddTask={handleAddTask}/>
-      <TaskList tasks={allTasks}/>
+      <TaskList
+        tasks={allTasks}
+        handleDeleteTask={handleDeleteTask}
+      />
 
       <StatusBar style="auto" />
     </View>
