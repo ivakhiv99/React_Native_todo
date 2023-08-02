@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Button, StyleSheet, TextInput, View, Keyboard } from 'react-native';
 import { Task } from '../types/task';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,6 +19,7 @@ const NewTaskForm:FC<INewTaskForm> = ({handleAddTask}) => {
           id: uuidv4(),
         });
         updateNewTask('');
+        Keyboard.dismiss();
       }
     }
  

@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 30,
         backgroundColor: 'tomato',
-        display: 'flex',
         alignItems: 'flex-end',
     },
     deleteBtn: {

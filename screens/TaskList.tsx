@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList } from 'react-native';
-import TaskItem from './TaskItem';
+import TaskItem from '../components/TaskItem';
 import { Task } from '../types/task';
 import { FC } from 'react';
 
