@@ -1,31 +1,46 @@
+import { FC } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
 
-const Header = () => (
-    <View style={styles.header}>
-        <View />
-        <View>
-            <Text style={styles.headerTitle}>All Tasks</Text>
-        </View>
-        <View >
-            <Pressable style={styles.addTaskBtn}>
-                <Text style={styles.headerTitle}>+</Text>
-            </Pressable>
-        </View>
 
-    </View>
-);
+interface IHeader {
+    title: string;
+    navigation: NavigationScreenProp<NavigationRoute, NavigationParams>
+}
 
+const Header:FC<IHeader> = ({title, navigation}) => {
+    console.log('rendering Header');
+
+    const handleRedirect = () => {
+        navigation.navigate('NewTaskForm');
+    }
+
+    return (
+       <View style={styles.header}>
+           <View />
+           <View>
+               <Text style={styles.headerTitle}>{title}</Text>
+           </View>
+           <View >
+               <Pressable style={styles.addTaskBtn} onPress={handleRedirect}>
+                   <Text style={styles.headerTitle}>+</Text>
+               </Pressable>
+           </View>
+
+       </View>
+    );
+} 
 const styles = StyleSheet.create({
     header: {
         flex: 1,
         flexDirection:'row',
-        backgroundColor: 'coral',
+        backgroundColor: 'red',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: 20,
-        paddingHorizontal: 20,
-        marginBottom: 15,
-        maxHeight: 100,
+        // paddingTop: 20,
+        // paddingHorizontal: 20,
+        // marginBottom: 15,
+        height: '100%',
         width: '100%',
     },
     headerTitle: {
