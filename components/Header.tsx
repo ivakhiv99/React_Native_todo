@@ -9,8 +9,6 @@ interface IHeader {
 }
 
 const Header:FC<IHeader> = ({title, navigation}) => {
-    console.log('rendering Header');
-
     const handleRedirect = () => {
         navigation.navigate('NewTaskForm');
     }

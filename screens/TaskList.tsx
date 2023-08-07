@@ -1,18 +1,18 @@
 import { StyleSheet, View, FlatList } from 'react-native';
 import TaskItem from '../components/TaskItem';
 import { Task } from '../types/task';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useState } from 'react';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
 
 
 interface ITaskList {
-  tasks: Task[];
-  handleDeleteTask: (taskId: string) => void;
+  navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
 }
 
-const TaskList:FC = () => {
+const TaskList:FC<ITaskList> = ({navigation}) => {
   
   const [allTasks, setAllTasks] = useState<Task[]>([
     {title: 'learn react native', id: uuidv4()},
@@ -29,8 +29,16 @@ const TaskList:FC = () => {
     setAllTasks(allTasks.filter((task: Task) => task.id !== taskId));
   }
   
+  useEffect(() => {
+    const title = navigation.getParam('title');
+    const id = navigation.getParam('id');
+    if (title && id) {
+      handleAddTask({title, id});
+    }
+  }, [navigation]);
 
-
+  // useEffect(() => console.log({allTasks}), [allTasks]);
+  
   return (
       <View style={styles.listContainer}> 
           <FlatList

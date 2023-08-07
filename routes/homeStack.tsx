@@ -8,7 +8,7 @@ import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-n
 
 const screens = {
     TaskList: {
-        screen: TaskList,
+        screen:({navigation}: {navigation: NavigationScreenProp<NavigationRoute, NavigationParams>}) => <TaskList navigation={navigation}/>,
         navigationOptions: ({navigation}: {navigation: NavigationScreenProp<NavigationRoute, NavigationParams>}) => {
             return {
                 headerTitle: () => <Header title='All Tasks' navigation={navigation}/>,
@@ -20,7 +20,7 @@ const screens = {
 
     },
     NewTaskForm: { 
-        screen: NewTaskForm,
+        screen:({navigation}: {navigation: NavigationScreenProp<NavigationRoute, NavigationParams>}) => <NewTaskForm navigation={navigation}/>,
     },
 };
 

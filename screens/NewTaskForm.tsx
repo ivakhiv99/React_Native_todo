@@ -1,25 +1,25 @@
 import { FC, useRef, useState } from 'react';
 import { Button, StyleSheet, TextInput, View, Keyboard } from 'react-native';
-import { Task } from '../types/task';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
 
 interface INewTaskForm {
-    handleAddTask: (tasl: Task) => void;
+  navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
 }
 
-const NewTaskForm:FC<INewTaskForm> = ({handleAddTask}) => {
+const NewTaskForm:FC<INewTaskForm> = ({navigation}) => {
     const [newTask, updateNewTask] = useState<string>('');
     const inputRef = useRef<TextInput | null>(null);
     const handleSave = () => {
       if(newTask.length > 0 && inputRef.current) {
         inputRef.current.setNativeProps({ text: '' });
-        handleAddTask({
+        updateNewTask('');
+        Keyboard.dismiss();
+        navigation.navigate('TaskList', {
           title: newTask,
           id: uuidv4(),
         });
-        updateNewTask('');
-        Keyboard.dismiss();
       }
     }
  
