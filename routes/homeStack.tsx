@@ -11,10 +11,15 @@ const screens = {
         screen:({navigation}: {navigation: NavigationScreenProp<NavigationRoute, NavigationParams>}) => <TaskList navigation={navigation}/>,
         navigationOptions: ({navigation}: {navigation: NavigationScreenProp<NavigationRoute, NavigationParams>}) => {
             return {
-                headerTitle: () => <Header title='All Tasks' navigation={navigation}/>,
-                headerStyle: {
+                header: () => <Header title='All Tasks' navigation={navigation}/>,
+                headerStyle:{
+                    height: 60,
                     backgroundColor: 'blue',
+                    padding: 0,
+
                 },
+
+
             }
         },
 

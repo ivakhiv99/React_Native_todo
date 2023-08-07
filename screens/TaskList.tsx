@@ -59,12 +59,14 @@ const TaskList:FC<ITaskList> = ({navigation}) => {
 
 const styles = StyleSheet.create({
     listContainer: {
-        flex: 1,
-        width: '100%',
-        backgroundColor: 'blue',
+      flex: 1,
+      width: '100%',
+      paddingHorizontal: 15,
+      backgroundColor: 'tomato',
     },
     taskList: {
-      backgroundColor: 'tomato',
+      paddingTop: 15,
+      backgroundColor: 'red',
     },
     taskItem: {
       padding: 15,
@@ -73,6 +75,7 @@ const styles = StyleSheet.create({
       borderColor: '#555',
       borderRadius: 15,
       marginBottom: 5,
+      marginHorizontal: 'auto',
       backgroundColor: 'coral',
       width: '95%'
     }

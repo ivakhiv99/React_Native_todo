@@ -30,16 +30,17 @@ const Header:FC<IHeader> = ({title, navigation}) => {
 } 
 const styles = StyleSheet.create({
     header: {
-        flex: 1,
-        flexDirection:'row',
-        backgroundColor: 'red',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        // paddingTop: 20,
-        // paddingHorizontal: 20,
-        // marginBottom: 15,
-        height: '100%',
+        height: 80,
         width: '100%',
+        // flex: 1,
+        backgroundColor: 'red',
+        flexDirection:'row',
+        // alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingTop: 35,
+        paddingHorizontal: 20,
+        // marginBottom: 15,
+
     },
     headerTitle: {
         color: '#fff',
@@ -49,10 +50,10 @@ const styles = StyleSheet.create({
     addTaskBtn: {
         backgroundColor: 'tomato',
         padding: 15,
+        width: 35,
+        height: 35,
         margin: 0,
-        // height: 60,
         borderRadius: 30,
-        // flex: 1,
     },
     
 
