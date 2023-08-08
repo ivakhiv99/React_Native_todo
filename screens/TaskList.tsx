@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     },
     taskList: {
       paddingTop: 15,
-      backgroundColor: 'red',
     },
     taskItem: {
       padding: 15,

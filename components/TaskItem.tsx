@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { Pressable, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 
 interface ITaskItem {
@@ -27,7 +28,7 @@ const TaskItem:FC<ITaskItem> = ({title, id, handleDeleteTask}) => {
                             style={styles.deleteBtn}
                             onPress={() => handleDeleteTask(id)}
                         >
-                            <Text style={styles.btnText}>#</Text>
+                            <MaterialIcons name="delete" size={24} color="#fff" />
                         </Pressable>
                     </View>
                 }
@@ -50,13 +51,12 @@ const styles = StyleSheet.create({
     expandedItem: {
         width: '100%',
         height: 30,
-        backgroundColor: 'tomato',
+        borderColor: '#333',
+        borderTopWidth: 1,
         alignItems: 'flex-end',
     },
     deleteBtn: {
-        width: 20,
-        height: 20,
-        backgroundColor: 'blue',
+        paddingHorizontal: 2,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
