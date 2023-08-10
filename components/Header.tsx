@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
-import { MaterialIcons } from '@expo/vector-icons'; 
+import AddBtn from './AddBtn'; 
 
 
 interface IHeader {
@@ -20,28 +20,23 @@ const Header:FC<IHeader> = ({title, navigation}) => {
            <View>
                <Text style={styles.headerTitle}>{title}</Text>
            </View>
-           <View >
-               <Pressable style={styles.addTaskBtn} onPress={handleRedirect}>
-                   <MaterialIcons name="add" size={24} color="#fff" />
-               </Pressable>
+           <View>
+               <AddBtn handleClick={handleRedirect}/>
            </View>
 
        </View>
     );
-} 
+};
+
 const styles = StyleSheet.create({
     header: {
         height: 80,
         width: '100%',
-        // flex: 1,
         backgroundColor: 'red',
         flexDirection:'row',
-        // alignItems: 'center',
         justifyContent: 'space-between',
         paddingTop: 35,
         paddingHorizontal: 20,
-        // marginBottom: 15,
-
     },
     headerTitle: {
         color: '#fff',
@@ -51,13 +46,9 @@ const styles = StyleSheet.create({
     addTaskBtn: {
         backgroundColor: 'tomato',
         padding: 6,
-        // width: 35,
-        // height: 35,
         margin: 0,
         borderRadius: 30,
     },
-    
-
 });
 
 export default Header;

@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react';
-import { Button, StyleSheet, TextInput, View, Keyboard } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, Button, StyleSheet, TextInput, View, Keyboard } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
@@ -25,43 +25,55 @@ const NewTaskForm:FC<INewTaskForm> = ({navigation}) => {
     }
  
     return (
-        <View style={styles.container}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    ref={inputRef}
-                    style={styles.input}
-                    placeholder='Build a house'
-                    onChangeText={updateNewTask}
-                />
-            </View>
-            <View style={styles.textAreaContainer}>
-                <TextInput
-                    placeholder="Well let me have a ruller and a saw and bord and I'll cut it"
-                    style={styles.textArea}
-                    multiline
-                    numberOfLines={4}
-                    maxLength={500}
-                />
-            </View>
-            <View style={styles.subtasksContainer}>
-                <SubTasks/>
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={handleSave}
-                    title="Save Task"
-                    color="coral"
-                    accessibilityLabel="Add new task to your ToDo list"
-                />
-            </View>
+		<View style={styles.container}>
+			{/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
+				{/* <KeyboardAvoidingView style={styles.keyboardContainer} behavior="position"> */}
+        		    <View style={styles.inputContainer}>
+        		        <TextInput
+        		            ref={inputRef}
+        		            style={styles.input}
+        		            placeholder='Build a house'
+        		            onChangeText={updateNewTask}
+        		        />
+        		    </View>
+        		    <View style={styles.textAreaContainer}>
+        		        <TextInput
+        		            placeholder="Well let me have a ruller and a saw and board and I'll cut it"
+        		            style={styles.textArea}
+        		            multiline
+        		            numberOfLines={4}
+        		            maxLength={500}
+        		        />
+        		    </View>
+        		    <View style={styles.subtasksContainer}>
+        		        <SubTasks/>
+        		    </View>
+        		    <View style={styles.buttonContainer}>
+        		        <Button
+        		            onPress={handleSave}
+        		            title="Save Task"
+        		            color="coral"
+        		            accessibilityLabel="Add new task to your ToDo list"
+        		        />
+        		    </View>
+        		{/* </KeyboardAvoidingView>
+			</ScrollView> */}
         </View>
     );
 };
 
 
 const styles = StyleSheet.create({
+	keyboardContainer: {
+		flex: 1,
+		// justifyContent: 'flex-end',
+	},
+	scrollContainer: {
+		flexGrow: 1,
+		justifyContent: 'space-between',
+	},
     container: {
-      flex: 1,
+		flex: 1,
       backgroundColor: 'tomato',
       alignItems: 'center',
       justifyContent: 'center',

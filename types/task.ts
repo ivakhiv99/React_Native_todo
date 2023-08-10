@@ -4,4 +4,10 @@ type Task = {
 
 }
 
-export {Task}
+type SubTask = {
+    text: string,
+    id: string,
+    finished: boolean,
+}
+
+export { Task, SubTask };
