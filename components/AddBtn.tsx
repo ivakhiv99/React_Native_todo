@@ -17,6 +17,8 @@ const styles = StyleSheet.create({
     addTaskBtn: {
         backgroundColor: 'tomato',
         padding: 6,
+        // width: 60,
+        // height: 60,
         margin: 0,
         borderRadius: 30,
     },
