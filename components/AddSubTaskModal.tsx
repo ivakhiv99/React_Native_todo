@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -23,25 +23,18 @@ const AddSubTaskModal:FC<IAddSubTaskModal> = ({isVisible, toggleModal, handleAdd
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [subTaskIsChecked, setSubTaskIsChecked] = useState<boolean>(false);
 
-    const inputRef = useRef<TextInput | null>(null);
-
     const toggleCheckbox = () => setIsChecked(!isChecked);
     const toggleSubtask = () => setSubTaskIsChecked(!subTaskIsChecked);
-
-    const textStyles = {
-        textDecorationLine: subTaskIsChecked ? 'line-through' : 'none',
-        fontStyle: subTaskIsChecked ? 'italic' : 'normal',
-        color: subTaskIsChecked ? '#777' : '#000',
-    };
 
     const hadnleSaveSubtask = () => {
         if(newTask.length > 0) {
             const newSubtask = {
                 text: newTask,
                 id: uuidv4(),
-                finished: false,
+                finished: subTaskIsChecked,
             };
             updateNewTask('');
+            setSubTaskIsChecked(false);
             handleAdd(isChecked, newSubtask);
         }
     };
@@ -63,10 +56,12 @@ const AddSubTaskModal:FC<IAddSubTaskModal> = ({isVisible, toggleModal, handleAdd
                             />
                         </View>
         		        <TextInput
-        		            ref={inputRef}
-        		            style={[styles.input, 
-                                {color: subTaskIsChecked ? '#777' : '#000'}
-                            ]}
+        		            style={[styles.input, {
+                                textDecorationLine: subTaskIsChecked ? 'line-through' : 'none',
+                                fontStyle: subTaskIsChecked ? 'italic' : 'normal',
+                                color: subTaskIsChecked ? '#777' : '#000',
+                            }]}
+                            value={newTask}
         		            placeholder='Get ruller, saw and board'
         		            onChangeText={updateNewTask}
         		        />
@@ -142,7 +137,6 @@ const styles = StyleSheet.create({
         marginRight: -5,
     },
     buttonsContainer: {
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 20,

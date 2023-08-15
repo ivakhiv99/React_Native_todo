@@ -66,7 +66,13 @@ const SubTasks:FC = () => {
                     renderItem={({item}) => (
                         <View>
                             <View></View>
-                            <Text>{item.text}</Text>
+                            <Text style={{
+                                textDecorationLine: item.finished ? 'line-through' : 'none',
+                                fontStyle: item.finished ? 'italic' : 'normal',
+                                color: item.finished ? '#777' : '#000',
+                            }}>
+                                {item.text}
+                            </Text>
                             <View></View>
                         </View>
                     )}
@@ -79,21 +85,23 @@ const SubTasks:FC = () => {
 const styles = StyleSheet.create({
     container: {
         height: 50,
+        minWidth: 250,
         width: '100%',
         backgroundColor: 'blue',
     },
     titleContainer: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#f4e801',
-        paddingHorizontal: 5,
+        paddingHorizontal: 20,
         paddingVertical: 5,
     },
     titleText: {
         fontSize: 16,
         marginRight: 8,
     },
-    subtaskListContainer:{
+    subtaskListContainer: {
 
     }
 });
