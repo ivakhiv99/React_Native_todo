@@ -34,10 +34,19 @@ const AddSubTaskModal:FC<IAddSubTaskModal> = ({isVisible, toggleModal, handleAdd
                 finished: subTaskIsChecked,
             };
             updateNewTask('');
-            setSubTaskIsChecked(false);
+            // setSubTaskIsChecked(false);
             handleAdd(isChecked, newSubtask);
         }
     };
+
+    useEffect(() => {
+        if(isChecked && !isVisible) {
+            console.log('isChecked && !isVisible');
+            setSubTaskIsChecked(false);
+        }
+    }, [isVisible])
+
+    useEffect(()=>console.log(subTaskIsChecked), [subTaskIsChecked])
 
     return(
         <Modal

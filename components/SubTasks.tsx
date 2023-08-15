@@ -2,8 +2,8 @@ import { FC, useState } from 'react';
 import AddBtn from './AddBtn'; 
 import { SubTask } from '../types/task';
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import AddSubTaskModal from './AddSubTaskModal';
+import SubTaskItem from './SubTaskItem';
 import {
     Button,
     Pressable,
@@ -24,25 +24,11 @@ const SubTasks:FC = () => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     
     const maxSubTasksCount = 5;
-    console.log('Subtasks render');
-
 
     const toggleModal = () => setIsModalVisible(!isModalVisible);
 
-    const handleOpenNewSubTaskModal = () => {
-
-    }
-
-    const handleAddSubTask = (text: string) => {
-
-        updateSubTasks([...subTasks, {
-            text,
-            id: uuidv4(),
-            finished: false,
-        }])
-    }
-
     const handleAdd = (saveAnother: boolean, subtask: SubTask) => {
+        console.log('handleAdd  saveAnother =', saveAnother)
         updateSubTasks([...subTasks, subtask]);
         if(!saveAnother) {
             toggleModal()
@@ -63,19 +49,7 @@ const SubTasks:FC = () => {
             <View style={styles.subtaskListContainer}>
                 <FlatList 
                     data={subTasks}
-                    renderItem={({item}) => (
-                        <View>
-                            <View></View>
-                            <Text style={{
-                                textDecorationLine: item.finished ? 'line-through' : 'none',
-                                fontStyle: item.finished ? 'italic' : 'normal',
-                                color: item.finished ? '#777' : '#000',
-                            }}>
-                                {item.text}
-                            </Text>
-                            <View></View>
-                        </View>
-                    )}
+                    renderItem={({item}) => <SubTaskItem item={item}/>}
                 />
             </View>
         </View>
@@ -102,7 +76,8 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     subtaskListContainer: {
-
+        height: '100%',
+        minHeight: 200
     }
 });
 
