@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect,useLayoutEffect, useRef, useState } from 'react';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,7 +24,7 @@ const AddSubTaskModal:FC<IAddSubTaskModal> = ({isVisible, toggleModal, handleAdd
     const [subTaskIsChecked, setSubTaskIsChecked] = useState<boolean>(false);
 
     const toggleCheckbox = () => setIsChecked(!isChecked);
-    const toggleSubtask = () => setSubTaskIsChecked(!subTaskIsChecked);
+    const toggleSubtask = () => setSubTaskIsChecked(prevState => !prevState);
 
     const hadnleSaveSubtask = () => {
         if(newTask.length > 0) {
@@ -34,19 +34,18 @@ const AddSubTaskModal:FC<IAddSubTaskModal> = ({isVisible, toggleModal, handleAdd
                 finished: subTaskIsChecked,
             };
             updateNewTask('');
-            // setSubTaskIsChecked(false);
+            setSubTaskIsChecked(false);
+
+
             handleAdd(isChecked, newSubtask);
         }
     };
 
     useEffect(() => {
         if(isChecked && !isVisible) {
-            console.log('isChecked && !isVisible');
             setSubTaskIsChecked(false);
         }
     }, [isVisible])
-
-    useEffect(()=>console.log(subTaskIsChecked), [subTaskIsChecked])
 
     return(
         <Modal
@@ -59,6 +58,7 @@ const AddSubTaskModal:FC<IAddSubTaskModal> = ({isVisible, toggleModal, handleAdd
                     <View style={styles.inputContainer}>
                         <View style={styles.subtaskCheckboxContainer}> 
                             <BouncyCheckbox
+                                key={subTaskIsChecked.toString()}
                                 size={18}
                                 isChecked={subTaskIsChecked}
                                 onPress={toggleSubtask}

@@ -28,7 +28,6 @@ const SubTasks:FC = () => {
     const toggleModal = () => setIsModalVisible(!isModalVisible);
 
     const handleAdd = (saveAnother: boolean, subtask: SubTask) => {
-        console.log('handleAdd  saveAnother =', saveAnother)
         updateSubTasks([...subTasks, subtask]);
         if(!saveAnother) {
             toggleModal()

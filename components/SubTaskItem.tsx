@@ -1,8 +1,5 @@
 import { FC, useState } from "react";
 import {
-    Button,
-    Pressable,
-    Modal,
     StyleSheet,
     View,
     Text,
