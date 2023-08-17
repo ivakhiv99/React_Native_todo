@@ -1,9 +1,10 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, Button, StyleSheet, TextInput, View, Keyboard } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
 import { SubTasks } from '../components';
+import { SubTask } from '../types/task'; 
 
 interface INewTaskForm {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
@@ -11,19 +12,27 @@ interface INewTaskForm {
 
 const NewTaskForm:FC<INewTaskForm> = ({navigation}) => {
     const [newTask, updateNewTask] = useState<string>('');
+    const [taskDescription, updateTaskDescription] = useState<string>('');
+    const [subTasks, updateSubtasks] = useState<SubTask[]>([]);
+
     const inputRef = useRef<TextInput | null>(null);
+    
     const handleSave = () => {
       if(newTask.length > 0 && inputRef.current) {
         inputRef.current.setNativeProps({ text: '' });
         updateNewTask('');
         Keyboard.dismiss();
         navigation.navigate('TaskList', {
-          title: newTask,
+          data: {
+            title: newTask,
+            description: taskDescription,
+            subTasks: subTasks,
+          },
           id: uuidv4(),
         });
       }
-    }
- 
+    };
+
     return (
 		<View style={styles.container}>
 			{/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
@@ -43,10 +52,12 @@ const NewTaskForm:FC<INewTaskForm> = ({navigation}) => {
         		            multiline
         		            numberOfLines={4}
         		            maxLength={500}
+                        value={taskDescription}
+        		            onChangeText={updateTaskDescription}
         		        />
         		    </View>
         		    <View style={styles.subtasksContainer}>
-        		        <SubTasks/>
+        		        <SubTasks updateSubTasksList={updateSubtasks}/>
         		    </View>
         		    <View style={styles.buttonContainer}>
         		        <Button

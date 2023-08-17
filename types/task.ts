@@ -1,7 +1,8 @@
 type Task = {
-    title: string,
     id: string,
-
+    title: string,
+    description?: string,
+    subtasks?: SubTask[],
 }
 
 type SubTask = {

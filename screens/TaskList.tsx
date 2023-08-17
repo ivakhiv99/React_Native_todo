@@ -30,10 +30,11 @@ const TaskList:FC<ITaskList> = ({navigation}) => {
   }
   
   useEffect(() => {
-    const title = navigation.getParam('title');
     const id = navigation.getParam('id');
-    if (title && id) {
-      handleAddTask({title, id});
+    const data = navigation.getParam('data');
+
+    if (data && id) {
+      handleAddTask({...data, id});
     }
   }, [navigation]);
 

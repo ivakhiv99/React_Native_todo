@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import AddBtn from './AddBtn'; 
 import { SubTask } from '../types/task';
 import 'react-native-get-random-values';
@@ -11,15 +11,18 @@ import {
     StyleSheet,
     View,
     Text,
-    FlatList
+    FlatList,
+    Keyboard
 } from 'react-native';
+// import DraggableFlatList from 'react-native-draggable-flatlist';
 
 
 
 interface ISubtasks {
+    updateSubTasksList: React.Dispatch<React.SetStateAction<SubTask[]>>
 }
 
-const SubTasks:FC = () => {
+const SubTasks:FC<ISubtasks> = ({updateSubTasksList}) => {
     const [subTasks, updateSubTasks] = useState<SubTask[]>([]);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     
@@ -30,9 +33,12 @@ const SubTasks:FC = () => {
     const handleAdd = (saveAnother: boolean, subtask: SubTask) => {
         updateSubTasks([...subTasks, subtask]);
         if(!saveAnother) {
-            toggleModal()
+            Keyboard.dismiss();
+            toggleModal();
         } 
-    }
+    };
+
+    useEffect(() => updateSubTasksList(subTasks), [subTasks]);
 
     return (
         <View style={styles.container}>
@@ -43,9 +49,21 @@ const SubTasks:FC = () => {
             />
             <View style={styles.titleContainer}>
                 <Text style={styles.titleText}>Sub-tasks ({subTasks.length}/{maxSubTasksCount})</Text>
-                <AddBtn handleClick={toggleModal}/>
+                <AddBtn
+                    disabled={subTasks.length === maxSubTasksCount}
+                    handleClick={toggleModal}
+                />
             </View>
             <View style={styles.subtaskListContainer}>
+                {/* <DraggableFlatList
+                    data={subTasks}
+                    renderItem={({item, drag}) => <SubTaskItem drag={drag} item={item}/>}
+                    keyExtractor={(item) => item.id}
+                    onDragEnd={({ data }) => {
+                      // Update the state with the new data order
+                      // You can save the new order to your state or perform any other actions
+                    }}
+                /> */}
                 <FlatList 
                     data={subTasks}
                     renderItem={({item}) => <SubTaskItem item={item}/>}
