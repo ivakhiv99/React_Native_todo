@@ -26,7 +26,7 @@ const NewTaskForm:FC<INewTaskForm> = ({navigation}) => {
           data: {
             title: newTask,
             description: taskDescription,
-            subTasks: subTasks,
+            subtasks: subTasks,
           },
           id: uuidv4(),
         });

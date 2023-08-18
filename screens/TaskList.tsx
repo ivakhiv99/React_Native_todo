@@ -38,8 +38,6 @@ const TaskList:FC<ITaskList> = ({navigation}) => {
     }
   }, [navigation]);
 
-  // useEffect(() => console.log({allTasks}), [allTasks]);
-  
   return (
       <View style={styles.listContainer}> 
           <FlatList
@@ -49,6 +47,7 @@ const TaskList:FC<ITaskList> = ({navigation}) => {
               renderItem={({item}) => (
                   <TaskItem
                     handleDeleteTask={handleDeleteTask}
+                    subtasks={item.subtasks}
                     title={item.title}
                     id={item.id}
                   />

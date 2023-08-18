@@ -1,18 +1,29 @@
-import { FC, useState } from 'react';
-import { Pressable, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { FC, useEffect, useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons'; 
+import SubTaskItem from './SubTaskItem';
+import {
+    TouchableHighlight,
+    StyleSheet,
+    Pressable,
+    FlatList,
+    Text,
+    View,
+} from 'react-native';
+import { SubTask } from '../types/task';
 
 
 interface ITaskItem {
+    handleDeleteTask: (taskId: string) => void;
+    subtasks?: SubTask[];
     title: string;
     id: string;
-    handleDeleteTask: (taskId: string) => void;
 }
 
-const TaskItem:FC<ITaskItem> = ({title, id, handleDeleteTask}) => {
+const TaskItem:FC<ITaskItem> = ({title, id, handleDeleteTask, subtasks}) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false); //will use for displaying subtasks and control buttons
 
     const toggleItem = () => setIsExpanded(!isExpanded);
+
     return (
         <TouchableHighlight
             onPress={toggleItem}
@@ -20,16 +31,31 @@ const TaskItem:FC<ITaskItem> = ({title, id, handleDeleteTask}) => {
             underlayColor="#fff"
         >
             <View style={styles.taskItem}>
-                <Text>{title}</Text>
+                <View style={[styles.taskHeaderContainer, {
+                    paddingBottom: isExpanded ? 5 : 0,
+                }]}>
+                    <Text>{title}</Text>
+                    <View>
+                    {
+                        isExpanded && 
+                            <Pressable
+                                style={styles.deleteBtn}
+                                onPress={() => handleDeleteTask(id)}
+                            >
+                                <MaterialIcons name="delete" size={24} color="#fff" />
+                            </Pressable>
+                    }
+                    </View>
+                </View>
                 {
                     isExpanded && 
                     <View style={styles.expandedItem}>
-                        <Pressable
-                            style={styles.deleteBtn}
-                            onPress={() => handleDeleteTask(id)}
-                        >
-                            <MaterialIcons name="delete" size={24} color="#fff" />
-                        </Pressable>
+                        <View style={styles.subtaskContainer}>
+                            <FlatList 
+                                data={subtasks}
+                                renderItem={({item}) => <SubTaskItem item={item}/>}
+                            />
+                        </View>
                     </View>
                 }
             </View>
@@ -48,12 +74,21 @@ const styles = StyleSheet.create({
       backgroundColor: 'coral',
       width: '95%'
     },
+    taskHeaderContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
     expandedItem: {
         width: '100%',
-        height: 30,
         borderColor: '#333',
         borderTopWidth: 1,
-        alignItems: 'flex-end',
+        paddingTop: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    subtaskContainer: {
+        width: '100%',
     },
     deleteBtn: {
         paddingHorizontal: 2,
@@ -68,7 +103,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         margin: 0,
         padding: 0,
-    }
+    },
 });
 
 export default TaskItem;
