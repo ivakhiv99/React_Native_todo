@@ -14,7 +14,8 @@ import {
     FlatList,
     Keyboard
 } from 'react-native';
-// import DraggableFlatList from 'react-native-draggable-flatlist';
+import DraggableFlatList from 'react-native-draggable-flatlist';
+import DragAndDrop from './DragAndDrop';
 
 
 
@@ -66,8 +67,13 @@ const SubTasks:FC<ISubtasks> = ({updateSubTasksList}) => {
                 /> */}
                 <FlatList 
                     data={subTasks}
-                    renderItem={({item}) => <SubTaskItem item={item}/>}
+                    renderItem={({item}) => (
+                        <DragAndDrop >
+                            <SubTaskItem item={item}/>
+                        </DragAndDrop>
+                    )}
                 />
+                
             </View>
         </View>
     );
